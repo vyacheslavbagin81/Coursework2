@@ -15,7 +15,8 @@ interface AddDay {
                     task.getTitle(),
                     task.getDescription(),
                     task.getType(),
-                    task.getAgainTask()));
+                    task.getAgainTask(),
+                    (TaskService.getKay()+1)));
         }
         return list;
     }

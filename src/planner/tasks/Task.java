@@ -10,20 +10,20 @@ import java.util.Objects;
 public class Task implements Serializable {
     private static int idGenerator;
     private String title; //заголовок
-    private final Type type;  //тип (личная, рабочая)
-    private final int id;
-    private final LocalDate date;
+    private Type type;  //тип (личная, рабочая)
+    private int id;
+    private LocalDate date;
     private String description;  //поле для описания
-    private final AgainTask againTask;  //признак повторяемости
+    private AgainTask againTask;  //признак повторяемости
 
     // конструктор
-    Task(LocalDate date, String title,String description, Type type, AgainTask againTask) {
+    Task(LocalDate date, String title,String description, Type type, AgainTask againTask, int id) {
         this.date = date;
         this.title = title;
         this.description = description;
         this.type = type;
         this.againTask = againTask;
-        this.id = idGenerator++;
+        this.id = id;
     }
 
     // гетеры и сетеры

@@ -2,6 +2,7 @@ package planner.workingWithTheUser;
 
 import planner.erorrs.Checking;
 import planner.erorrs.IncorrectArgumentException;
+import planner.file.FileOutput;
 import planner.tasks.TaskService;
 
 public class Menu {
@@ -31,6 +32,7 @@ public class Menu {
                 }
                 case 2 -> {
                     WorkingTheUser.choiceRemovTask();
+                    FileOutput.fileOutputTaskDel(TaskService.getTaskMapDelete());
                     System.out.println();
                     menu();
                 }
@@ -55,6 +57,8 @@ public class Menu {
                     menu();
                 }
                 case 0 -> {
+                    FileOutput.fileOutputTask(TaskService.getTaskMap());
+
                     System.exit(0);}
             }
         } catch (NumberFormatException | IncorrectArgumentException e) {

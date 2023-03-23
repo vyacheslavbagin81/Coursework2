@@ -2,6 +2,7 @@ package planner.tasks;
 
 import planner.erorrs.Checking;
 import planner.erorrs.TaskNotFoundException;
+import planner.file.FileInput;
 import planner.workingWithTheUser.Menu;
 import planner.workingWithTheUser.Request;
 import planner.workingWithTheUser.RequestOfTheDate;
@@ -14,25 +15,29 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskService implements Serializable {
-    private static final Map<Integer, Task> taskMap = new HashMap<>();
-    private static final Map<Integer, Task> taskMapDelete = new HashMap<>();
+    private static Map<Integer, Task> taskMap = FileInput.fileInputTask();
+    private static Map<Integer, Task> taskMapDelete = FileInput.fileInputTaskDel();
+    private static int kay = taskMap.size() + taskMapDelete.size();
 
     public static Map<Integer, Task> getTaskMap() {
         return taskMap;
     }
 
-
     public static Map<Integer, Task> getTaskMapDelete() {
         return taskMapDelete;
     }
 
+    public static int getKay() {
+        return kay;
+    }
 
     public static void addTask() {
         Task task = new Task(WorkingTheUser.addLocalDate(),
                 WorkingTheUser.addTitle(),
                 WorkingTheUser.addDescription(),
                 WorkingTheUser.addType(),
-                WorkingTheUser.addAgainTask());
+                WorkingTheUser.addAgainTask(),
+                kay++);
         taskMap.put(task.getId(), task);
         List<Task> list = CheckingTheFrequency.checkType(task.getAgainTask(), task);
         for (Task t : list) {
@@ -69,6 +74,7 @@ public class TaskService implements Serializable {
         }
         try {
             Checking.checkingTask(taskMap, id);
+            taskMapDelete.put(id, taskMap.get(id));
             taskMap.remove(id);
         } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
