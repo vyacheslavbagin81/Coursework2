@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +17,9 @@ public class Main {
                 mapList.put(s, mapList.get(s)+1);
             } else mapList.put(s, 1);
         }
-        mapList.forEach((key, value) -> System.out.println(value + " " + key));
+        mapList.entrySet().stream().
+                limit(10).
+                collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)).
+                forEach((key, value) -> System.out.println(value + " " + key));
     }
 }
