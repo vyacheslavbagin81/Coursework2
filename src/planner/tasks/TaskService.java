@@ -10,7 +10,6 @@ import planner.workingWithTheUser.WorkingTheUser;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,10 @@ public class TaskService implements Serializable {
 
     public static Map<Integer, Task> getTaskMap() {
         return taskMap;
+    }
+
+    public static void setTaskMap(Map<Integer, Task> taskMap) {
+        TaskService.taskMap = taskMap;
     }
 
     public static Map<Integer, Task> getTaskMapDelete() {
@@ -39,10 +42,6 @@ public class TaskService implements Serializable {
                 WorkingTheUser.addAgainTask(),
                 kay++);
         taskMap.put(task.getId(), task);
-        List<Task> list = CheckingTheFrequency.checkType(task.getAgainTask(), task);
-        for (Task t : list) {
-            taskMap.put(t.getId(), t);
-        }
     }
 
     public static void remove(String title) {
